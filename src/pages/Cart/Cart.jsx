@@ -1,15 +1,22 @@
 import React, { useContext } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../context/StoreContext";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItems, service_list_details, revoveFromCart } =
-    useContext(StoreContext);
+  const {
+    cartItems,
+    service_list_details,
+    removeFromCart,
+    getTotalCartAmount,
+  } = useContext(StoreContext);
+
+  const navigate = useNavigate();
 
   return (
     <div className="cart">
       <div className="cart-items">
-        <div className="cart-item-title">
+        <div className="cart-items-title">
           <p>Items</p>
           <p>Title</p>
           <p>Price</p>
@@ -19,6 +26,65 @@ const Cart = () => {
         </div>
         <br />
         <hr />
+
+        {/* Compare cart items and service list : if the service is available in the cart item, then the same has to be displayed in the cart page*/}
+        {service_list_details.map((service, index) => {
+          if (cartItems[service._id] > 0) {
+            return (
+              <>
+                <div className="cart-items-title cart-items-item">
+                  <img src={service.image} alt="" />
+                  <p>{service.name}</p>
+                  <p>₹{service.price}</p>
+                  <p>{cartItems[service._id]}</p>
+                  <p>₹{service.price * cartItems[service._id]}</p>
+                  <p
+                    onClick={() => removeFromCart(service._id)}
+                    className="cross"
+                  >
+                    x
+                  </p>
+                </div>
+                <hr />
+              </>
+            );
+          }
+        })}
+      </div>
+      <div className="cart-bottom">
+        <div className="cart-total">
+          <h2>Cart Total</h2>
+          <div>
+            <div className="cart-total-details">
+              <p>Subtotal</p>
+              <p>₹{getTotalCartAmount()}</p>
+            </div>
+            <hr />
+            <div className="cart-total-details">
+              <p>Delivery Fee</p>
+              <p>₹{getTotalCartAmount() === 0 ? 0 : 2}</p>
+            </div>
+            <hr />
+            <div className="cart-total-details">
+              <b>Total</b>
+              <b>
+                ₹{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}
+              </b>
+            </div>
+          </div>
+          <button onClick={() => navigate("/order")}>
+            PROCEED TO CHECKOUT
+          </button>
+        </div>
+        <div className="cart-promocode">
+          <div>
+            <p>If you have a promo code, Enter it here</p>
+            <div className="cart-promocode-input">
+              <input type="text" placeholder="promo code" />
+              <button>Submit</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

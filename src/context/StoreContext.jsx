@@ -9,18 +9,32 @@ const StoreContextProvider = (props) => {
   const addToCart = (serviceId) => {
     if (!cartItems[serviceId]) {
       setCartItems((prev) => ({ ...prev, [serviceId]: 1 }));
-    } else {
-      setCartItems((prev) => ({ ...prev, [serviceId]: prev[serviceId] + 1 }));
     }
+    // else {
+    //   setCartItems((prev) => ({ ...prev, [serviceId]: prev[serviceId] + 1 }));
+    // }
   };
 
   const removeFromCart = (serviceId) => {
     setCartItems((prev) => ({ ...prev, [serviceId]: prev[serviceId] - 1 }));
   };
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
+  //   useEffect(() => {
+  //     console.log(cartItems);
+  //   }, [cartItems]);
+
+  const getTotalCartAmount = () => {
+    let totalAmount = 0;
+    for (const service in cartItems) {
+      if (cartItems[service] > 0) {
+        let serviceInfo = service_list_details.find(
+          (product) => product._id === service
+        );
+        totalAmount += serviceInfo.price * cartItems[service];
+      }
+    }
+    return totalAmount;
+  };
 
   const contextValue = {
     service_list_details,
@@ -28,6 +42,7 @@ const StoreContextProvider = (props) => {
     setCartItems,
     addToCart,
     removeFromCart,
+    getTotalCartAmount,
   };
 
   return (

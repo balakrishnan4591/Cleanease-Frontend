@@ -8,7 +8,10 @@ const ExploreService = ({ category, setCategory }) => {
     <div className="explore-service" id="explore-service">
       <h1>Explore our cleaning service</h1>
       <p className="explore-service-text">
-        you can select on eof these services and make use of our work
+        {/* Customize your experience by exploring our cleaning services—add or
+        remove options to perfectly suit your needs! */}
+        Select a cleaning service to discover tailored sub-services that meet
+        your specific needs!
       </p>
       <div className="explore-service-list">
         {service_list.map((service, index) => {
