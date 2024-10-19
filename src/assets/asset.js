@@ -12,6 +12,9 @@ import twitter_icon from "./twitter_icon.png";
 import app_store from "./app_store.png";
 import play_store from "./play_store.png";
 import cross_icon from "./cross_icon.png";
+import profile_icon from "./profile_icon.png";
+import bag_icon from "./bag_icon.png";
+import logout_icon from "./logout_icon.png";
 
 import fullhouse from "./fullhouse.png";
 import kitchen from "./kitchen.png";
@@ -45,6 +48,9 @@ export const assets = {
   add_icon_white,
   add_icon_green,
   remove_icon_red,
+  profile_icon,
+  bag_icon,
+  logout_icon,
 
   facebook_icon,
   linkedin_icon,

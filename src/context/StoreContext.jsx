@@ -1,27 +1,24 @@
 import { createContext, useEffect, useState } from "react";
-import { service_list_details } from "../assets/asset";
+import axios from "axios";
+// import { service_list_details } from "../assets/asset";
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
+  const url = "http://localhost:4000";
+  const [token, setToken] = useState("");
+  const [service_list_details, setServiceListDetails] = useState([]);
 
   const addToCart = (serviceId) => {
     if (!cartItems[serviceId]) {
       setCartItems((prev) => ({ ...prev, [serviceId]: 1 }));
     }
-    // else {
-    //   setCartItems((prev) => ({ ...prev, [serviceId]: prev[serviceId] + 1 }));
-    // }
   };
 
   const removeFromCart = (serviceId) => {
     setCartItems((prev) => ({ ...prev, [serviceId]: prev[serviceId] - 1 }));
   };
-
-  //   useEffect(() => {
-  //     console.log(cartItems);
-  //   }, [cartItems]);
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
@@ -36,6 +33,22 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
+  const fetchServiceList = async () => {
+    const response = await axios.get(url + "/api/service/list");
+    setServiceListDetails(response.data.data);
+  };
+
+  //prevent logout during a page refresh
+  useEffect(() => {
+    async function loadData() {
+      await fetchServiceList();
+      if (localStorage.getItem("token")) {
+        setToken(localStorage.getItem("token"));
+      }
+    }
+    loadData();
+  }, []);
+
   const contextValue = {
     service_list_details,
     cartItems,
@@ -43,6 +56,9 @@ const StoreContextProvider = (props) => {
     addToCart,
     removeFromCart,
     getTotalCartAmount,
+    url,
+    token,
+    setToken,
   };
 
   return (

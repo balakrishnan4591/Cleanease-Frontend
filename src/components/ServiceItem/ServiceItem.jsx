@@ -5,12 +5,17 @@ import { StoreContext } from "../../context/StoreContext";
 
 const ServiceItem = ({ id, name, description, price, image }) => {
   //   const [serviceCount, setServiceCount] = useState(0);
-  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+  const { cartItems, addToCart, removeFromCart, url } =
+    useContext(StoreContext);
 
   return (
     <div className="service-item">
       <div className="service-item-img-container">
-        <img className="service-item-image" src={image} alt="" />
+        <img
+          className="service-item-image"
+          src={url + "/images/" + image}
+          alt=""
+        />
         {!cartItems[id] ? (
           <img
             className="add"
