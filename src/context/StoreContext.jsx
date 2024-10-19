@@ -10,14 +10,30 @@ const StoreContextProvider = (props) => {
   const [token, setToken] = useState("");
   const [service_list_details, setServiceListDetails] = useState([]);
 
-  const addToCart = (serviceId) => {
+  const addToCart = async (serviceId) => {
     if (!cartItems[serviceId]) {
       setCartItems((prev) => ({ ...prev, [serviceId]: 1 }));
+    } else {
+      setCartItems((prev) => ({ ...prev, [serviceId]: prev[serviceId] + 1 }));
+    }
+    if (token) {
+      await axios.post(
+        url + "/api/cart/add",
+        { serviceId },
+        { headers: { token } }
+      );
     }
   };
 
-  const removeFromCart = (serviceId) => {
+  const removeFromCart = async (serviceId) => {
     setCartItems((prev) => ({ ...prev, [serviceId]: prev[serviceId] - 1 }));
+    if (token) {
+      await axios.post(
+        url + "/api/cart/remove",
+        { serviceId },
+        { headers: { token } }
+      );
+    }
   };
 
   const getTotalCartAmount = () => {
@@ -38,12 +54,22 @@ const StoreContextProvider = (props) => {
     setServiceListDetails(response.data.data);
   };
 
+  const loadCartData = async (token) => {
+    const response = await axios.post(
+      url + "/api/cart/get",
+      {},
+      { headers: { token } }
+    );
+    setCartItems(response.data.cartData);
+  };
+
   //prevent logout during a page refresh
   useEffect(() => {
     async function loadData() {
       await fetchServiceList();
       if (localStorage.getItem("token")) {
         setToken(localStorage.getItem("token"));
+        await loadCartData(localStorage.getItem("token"));
       }
     }
     loadData();
