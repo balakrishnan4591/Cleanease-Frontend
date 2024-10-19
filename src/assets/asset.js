@@ -15,7 +15,7 @@ import cross_icon from "./cross_icon.png";
 import profile_icon from "./profile_icon.png";
 import bag_icon from "./bag_icon.png";
 import logout_icon from "./logout_icon.png";
-
+import parcel_icon from "./parcel_icon.png";
 import fullhouse from "./fullhouse.png";
 import kitchen from "./kitchen.png";
 import bedroom from "./bedroom.png";
@@ -34,7 +34,6 @@ import bedroom_cleaning from "./bedroom_cleaning.png";
 import fullhouse_cleaning from "./fullhouse_cleaning.png";
 import garden_cleaning from "./garden_cleaning.png";
 import terrace_cleaning from "./terrace_cleaning.png";
-
 import rating from "./rating_starts.png";
 
 //export images in object format
@@ -42,7 +41,6 @@ import rating from "./rating_starts.png";
 export const assets = {
   logo,
   clean,
-
   search_icon,
   basket_icon,
   add_icon_white,
@@ -51,15 +49,13 @@ export const assets = {
   profile_icon,
   bag_icon,
   logout_icon,
-
+  parcel_icon,
   facebook_icon,
   linkedin_icon,
   twitter_icon,
-
   app_store,
   play_store,
   cross_icon,
-
   fullhouse,
   kitchen,
   bedroom,
@@ -68,7 +64,6 @@ export const assets = {
   balcony,
   garden,
   terrace,
-
   microwave_cleaning_service,
   stove_cleaning_service,
   kitchen_sink_cleaning,

@@ -9,9 +9,9 @@ const Footer = () => {
         <div className="footer-content-left">
           <img src={assets.logo} alt="" className="logo" />
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio
-            cupiditate fuga ipsum animi, quis illo eius debitis eos provident
-            quaerat tempore nesciunt tempora laudantium alias rerum,
+            At Cleanease, we transform your spaces into spotless sanctuaries
+            with our dedicated cleaning services. Experience the ease of a
+            cleaner home and workplace today!
           </p>
           <div className="footer-social-icons">
             <img src={assets.facebook_icon} alt="" />
